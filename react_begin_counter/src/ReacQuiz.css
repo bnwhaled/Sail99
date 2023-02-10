@@ -1,25 +1,18 @@
-.padding-style {
+.app-style {
   padding: 100px;
   display: flex;
   gap: 12px;
 }
-.box-style {
-  font-size: 11px;
-  color: black;
+.compo-style {
+  font-size: 20px;
+  color: blueviolet;
   width: 150px;
   height: 150px;
-  border: 1px solid rgb(126, 17, 17);
+  border: 1px solid royalblue;
   border-radius: 10px;
   display: flex;
   border-width: thick;
   /* 밑에두개는 박스내 컨텐츠 정중앙 정렬 */
-  align-items: center;
-  justify-content: center;
-}
-
-.input-style {
-  display: flex;
-  margin: auto;
   align-items: center;
   justify-content: center;
 }
