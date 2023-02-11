@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Box1 from "./components/Box1";
 import Box2 from "./components/Box2";
 import Box3 from "./components/Box3";
@@ -12,6 +12,10 @@ function App() {
   const minusnumbtn = () => {
     setCount(count - 1);
   };
+  const initCount = useCallback(() => {
+    console.log(`${count}에서 0으로 변경됨`);
+    setCount(0);
+  }, [count]);
 
   return (
     <div>
@@ -28,7 +32,7 @@ function App() {
         <Box1 />
 
         <Box2 />
-        <Box3 />
+        <Box3 initCount={initCount} />
       </div>
     </div>
   );

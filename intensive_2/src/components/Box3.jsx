@@ -1,6 +1,6 @@
 import React from "react";
 
-function Box3() {
+function Box3({ initCount }) {
   const style = {
     width: "100px",
     height: "100px",
@@ -8,7 +8,11 @@ function Box3() {
     color: "white",
   };
   console.log("box3렌더링");
-  return <div style={style}>Box3</div>;
+  return (
+    <div style={style}>
+      <button onClick={initCount}>초기화</button>
+    </div>
+  );
 }
 
 export default React.memo(Box3);
