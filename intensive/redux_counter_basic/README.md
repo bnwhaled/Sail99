@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# redux start 환경설정
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 설치
 
-## Available Scripts
+터미널
+yarn add redux react-redux
 
-In the project directory, you can run:
+### configStore.js == 중앙데이터관리소
 
-### `npm start`
+1. redux:리덕스 관련 코드를 모두 몰아넣음
+2. config : 리덕스 설정 관련파일 전부
+3. configStore.js : 중앙 state 관리소 -> 설정 코드(.js)
+4. modules : state의 그룹 (중앙state에서 관리하는 state의 그룹이 여기로)
+   ex) Todolist app을 만들면
+   => 이것에 필요한 state들이 모두 모여있을 todo.js같은걸 만들어 넣을것
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### step1. 폴더생성
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+src/redux/config 폴더생성
+config안에다가
+configStore.js파일 생성
 
-### `npm test`
+src/redux/modules 폴더 생성
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### import
 
-### `npm run build`
+// 중앙 데이터 관리소(store)를 설정하는 부분
+import { createStore } from "redux"; //스토어를 만드는 API
+import { combineReducers } from "redux"; //reduxer들을 한번에 묶는 API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const rootReducer = combineReducers({});
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+//변수들이 객체형태로 들어감
+//값들은 modules의 애들이 전부들어감
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const store = createStore();
+리턴값을 계속 스토어에 넣어줌
 
-### `npm run eject`
+//위 reducer가지고 store를 생성
+//인자에는 reducer묶음 즉, rootReducer가 들어가야함
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export default store;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### index.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./redux/config/configStore";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+// App이 provider영향권 내에 들어옴
+<Provider store={store}>  
+<App />
+</Provider>
+// App컴포넌트 이하에서는 store를 사용할 준비가됨
+);
 
-## Learn More
+reportWebVitals();
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### module에 state의 그룹인 counter.js를 만들어 state그룹 이 파일이 reducer
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+//초기상태값이 필요
+//보통 변수명 initialState
+//객체형태로 만들것
+const initialState = {
+number: 0,
+};
 
-### Code Splitting
+//리듀서 : state에 변화를 일으키는 함수
+//즉, state를 action의 type에따라 변경시키는 함수
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+//** input은 어떤 인자를 받냐 : state와 action ** 중요
+//redux팀에서 무조건 이렇게 받게 만듦
+//
+//state의 초깃값은 initial state
+//action은 객체형태로도 있고, action은 타입이라는게 있고 밸류라는게 있다.
+//action은 state를 어떻게 수정할건지
+const counter = (state = initialState, action) => {
+switch (action.type) {
+default:
+return state;
+}
+};
+//위 코드는 해석
+//counter를 할당하는데 state는 제일위에 만든 기본값이고
+//action은 switch를 통해서 설정이되는데 action의 type에 따라 바뀌는 값이 있다
+//밑에 작업 수행
+//아무것도 없을경우 default: 만 넣어주자
+//return state를 하면 initialState에서 받은 counter의 초기값이 리턴됨
+//
+//
+//counter내보내기
+export default counter;
 
-### Analyzing the Bundle Size
+### configstore에 import
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+// 중앙 데이터 관리소(store)를 설정하는 부분
+import { createStore } from "redux"; //스토어를 만드는 API
+import { combineReducers } from "redux"; //reduxer들을 한번에 묶는 API
+import counter from "./modules/counter";
 
-### Making a Progressive Web App
+//위엔 변수들이 객체형태로 들어감
+//값들은 modules의 애들이 전부들어감
+const rootReducer = combineReducers({
+counter: counter
+});
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+const store = createStore();
+//위 reducer가지고 store를 생성
+//리턴값을 계속 스토어에 넣어줌
+//인자에는 reducer묶음 즉, rootReducer가 들어가야함
 
-### Advanced Configuration
+export default store;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### 위의 counter를 선언하면 비로소 App이 중앙에 접근할 수 있게됨
 
-### Deployment
+### 접근을 위해서는 redux훅을 사용해야함
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# 작업시작 : 접근하는 법 : App.jsx 에서 작업시작
 
-### `npm run build` fails to minify
+import React from "react";
+import { useSelector } from "react-redux";
+import "./App.css";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+function App() {
+//여기서 store에 접근해, counter의 값을 읽어오고 싶으면,
+//useSelector를 사용해 가져올 수 있음
+//return한 state를 사용가능
+
+const data = useSelector((state) => {
+return state;
+});
+console.log("data", data);
+return <div>Redux!</div>;
+}
+
+export default App;
+
+콘솔에
+data {counter: {…}, users: {…}}
+counter: number: 0
+users:
+userId: 123]
+이렇게 배열형태로 찍힌것을 인수로 받아 사용 가능함.
+
+import React from "react";
+import { useSelector } from "react-redux";
+import "./App.css";
+
+function App() {
+//여기서 store에 접근해, counter의 값을 읽어오고 싶으면,
+//useSelector를 사용해 가져올 수 있음
+//return한 state를 사용가능
+
+const counter = useSelector((state) => {
+return state.counter;
+});
+console.log("counter->", counter.number);
+return (
+<>
+<div>현재카운트:{counter.number}</div>;
+{/\* setState는 바로 넣어주면되지만
+redux는 disptch가 action을 던져주는 작업이 필요!
+고로 이벤트발생시 dispatch로 action을 보내야함
+
+    아래에서는 onClick시 +1을 더해주어야 하는데
+    module에서 로직을 가져와야해서 module수정
+    */}
+      <button
+        onClick={() => {
+          alert(1);
+        }}
+      >
+        +
+      </button>
+    </>
+
+);
+}
+
+export default App;
+
+//위의 type이 담긴 action을
