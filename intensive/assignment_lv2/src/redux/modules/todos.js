@@ -10,30 +10,18 @@ export const addTodo = (payload) => {
 export const deleteTodo = (payload) => {
   return { type: DELETE_TODO, payload };
 };
-
 export const doneTodo = (payload) => {
   return { type: DONE_TODO, payload };
 };
 
 // 초기값 initialState
 const initialState = {
+  counter: 1,
   todos: [
     {
       id: 1,
-      title: "리액트강의보기",
-      body: "챕터1부터 챕터 12까지 학습",
-      isDone: false,
-    },
-    {
-      id: 2,
-      title: "점심먹기",
-      body: "메뉴는 삽겹살",
-      isDone: false,
-    },
-    {
-      id: 3,
-      title: "저녁먹기",
-      body: "스테이끼",
+      title: "abc",
+      body: "def",
       isDone: false,
     },
   ],
@@ -44,21 +32,29 @@ const todos = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
       return {
-        ...state,
-        todos: [...state.todos, action.payload],
+        counter: state.counter + 1,
+        todos: [...state.todos, { ...action.payload, id: state.counter }],
       };
     case DELETE_TODO:
       return {
-        ...state,
-        todos: [...state.todos, action.payload],
+        counter: state.counter,
+        todos: [
+          ...state.todos.filter((value) => {
+            if (value.id !== action.payload.id) return value;
+          }),
+        ],
       };
-
-    //완료 리듀서
     case DONE_TODO:
       return {
-        ...state,
-        todos: [...state.todos, action.payload],
+        counter: state.counter,
+        todos: [
+          ...state.todos.map((value) => {
+            if (value.id === action.payload.id)
+              return { ...value, isDone: !value.isDone };
+          }),
+        ],
       };
+
     default:
       return state;
   }
