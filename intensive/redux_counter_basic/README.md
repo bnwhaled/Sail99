@@ -17,7 +17,7 @@ yarn add redux react-redux
 ### step1. 폴더생성
 
 src/redux/config 폴더생성
-config안에다가
+config안에다가  
 configStore.js파일 생성
 
 src/redux/modules 폴더 생성
@@ -80,13 +80,14 @@ number: 0,
 //state의 초깃값은 initial state
 //action은 객체형태로도 있고, action은 타입이라는게 있고 밸류라는게 있다.
 //action은 state를 어떻게 수정할건지
+//
 const counter = (state = initialState, action) => {
 switch (action.type) {
 default:
 return state;
 }
 };
-//위 코드는 해석
+//위 코드는 (해석)
 //counter를 할당하는데 state는 제일위에 만든 기본값이고
 //action은 switch를 통해서 설정이되는데 action의 type에 따라 바뀌는 값이 있다
 //밑에 작업 수행
@@ -163,6 +164,7 @@ return state.counter;
 console.log("counter->", counter.number);
 return (
 <>
+
 <div>현재카운트:{counter.number}</div>;
 {/\* setState는 바로 넣어주면되지만
 redux는 disptch가 action을 던져주는 작업이 필요!

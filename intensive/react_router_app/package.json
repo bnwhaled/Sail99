@@ -1,0 +1,8 @@
+{
+  "name": "react_router_app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react-router-dom": "^6.8.1"
+  }
+}
