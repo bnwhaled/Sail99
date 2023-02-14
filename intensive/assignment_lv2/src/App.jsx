@@ -1,103 +1,102 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import addTodoList from "./redux/modules/todos";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, deleteTodo } from "./redux/modules/todos";
+import "./App.css";
 
-function App() {
-  ////////////////헤더 입력구역/////////////////
+const App = () => {
+  //////////////Addform박스//////////////
   const AddForm = () => {
     const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [body, setBody] = useState("");
     const todos = useSelector((state) => state.todos.todos);
     const dispatch = useDispatch();
-    //
-    // form 태그 submit Handler
-    const onClickHandler = (e) => {
-      // e.preventDefault();
-      // if (title === "") return;
 
-      ///////////////DISPATCH
+    //추가버튼핸들러
+    const onSubmitHandler = (e) => {
+      e.preventDefault();
+      if (title === "") return;
+
       dispatch(
-        addTodoList({
+        addTodo({
           id: todos.length + 1,
           title,
+          body,
         })
       );
     };
+
     return (
       <div>
-        {/* <form onSubmit={onSubmitHandler}> */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
-            margin: "auto",
-          }}
-        >
+        <form onSubmit={onSubmitHandler}>
+          <label>제목입력</label>
           <input
             type="text"
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
-              console.log(title);
             }}
           />
           <input
             type="text"
-            value={content}
+            value={body}
             onChange={(e) => {
-              setContent(e.target.value);
-              console.log(content);
+              setBody(e.target.value);
             }}
           />
-          <button onClick={onClickHandler}>추가하기</button>
-        </div>
-
-        {/* </form> */}
+          <button>추가</button>
+        </form>
       </div>
     );
   };
-  //
-  ////////////////박스 출력 구역/////////////////
-  const AddTodoBox = () => {
+
+  //////////리스트 박스///////////////
+  const TodoListContainer = () => {
+    const [isDone, setIsDone] = useState("");
     const todos = useSelector((state) => state.todos.todos);
+    const dispatch = useDispatch();
+    //완료버튼 핸들러
+    const isDoneBtnHandler = (todo) => {};
+    //삭제버튼 핸들러
+    const removeBtnHandler = (id) => {
+      dispatch(deleteTodo(todos.filter((todos) => todos.id !== id)));
+    };
     return (
       <div>
-        <div>
-          {todos.map((todo) => (
-            <div
-              style={{
-                backgroundColor: "red",
-                textAlign: "center",
-                alignContent: "center",
-                margin: 30,
-              }}
-              key={todo.id}
-            >
-              {todo.title}:{todo.body}
-            </div>
-          ))}
-        </div>
-        <div>완료구역</div>
+        {console.log(todos)}
+        {todos.map((todo) => (
+          <div key={todo.id}>
+            {todo.title}============={todo.body}
+            <button onClick={(todo) => isDoneBtnHandler(todo.id)}>완료</button>
+            <button onClick={(todo) => removeBtnHandler(todo.id)}>삭제</button>
+          </div>
+        ))}
       </div>
     );
   };
-  //////////////////////////////////////////App 리턴
-  return (
-    //div ==> style 넣을 것
-    <div>
-      <AddForm />
-      <AddTodoBox />
-    </div>
-  );
-}
 
-// const InputBoxSt = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   text-align: center;
-//   margin: auto;
-// `;
+  return (
+    <StContainer>
+      <AddForm />
+      <TodoListContainer />
+    </StContainer>
+  );
+};
 
 export default App;
+
+//전체스타일(중앙고정)
+const StContainer = styled.section`
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f5f5dc;
+  height: 700px;
+`;
+
+//인풋박스스타일(제목 내용입력칸)
+const StinputBox = styled.section`
+  margin: 0 auto;
+  background-color: red;
+`;
+
+//투두리스트스탈(박스모양)

@@ -47,6 +47,8 @@ const App = () => {
     setUsers((prev) => {
       const newArr = [...prev];
       const target = newArr.filter((user) => user.id === id)[0];
+      //클릭한거 가져와서 같은거를 뺀다.
+      //뉴타겟에서는 같은거뺸것 중에서 false true를 비교한다.
       const newTarget = { ...target, isDone: !target.isDone };
 
       const targetIndex = newArr.findIndex((user) => user.id === id);
