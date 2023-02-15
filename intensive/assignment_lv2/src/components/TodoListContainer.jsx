@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { deleteTodo } from "../redux/modules/todos";
 import { doneTodo } from "../redux/modules/todos";
-import Router from "../shared/Router";
-
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const TodoListContainer = () => {
+  const navigate = useNavigate();
   const todos = useSelector((state) => state.todos.todos);
   console.log("todos", todos);
 
@@ -23,10 +24,12 @@ const TodoListContainer = () => {
   return (
     <StTododiv>
       <StH1>doing</StH1>
+
       {todos
         .filter((value) => value.isDone === false)
         .map((todo) => (
           <StTodobox key={todo.id}>
+            <Link to={`/detail/${todo.id}`}>detail</Link>
             {todo.title}
             <br />
             {todo.body}
@@ -43,13 +46,19 @@ const TodoListContainer = () => {
         .filter((value) => value.isDone === true)
         .map((todo) => (
           <StTodobox key={todo.id}>
+            <Detailbtn>detail</Detailbtn>
             {todo.title}
             <br />
 
             {todo.body}
             <br />
 
-            <Stboxbtn onClick={() => isDoneBtnHandler(todo.id)}>back</Stboxbtn>
+            <Stboxbtn
+              style={{ backgroundColor: "gray" }}
+              onClick={() => isDoneBtnHandler(todo.id)}
+            >
+              back
+            </Stboxbtn>
             <br />
             <Stboxbtn onClick={() => removeBtnHandler(todo.id)}>
               delete
@@ -72,9 +81,9 @@ const StTodobox = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 50px;
   border-radius: 12px;
-  column-count: 2;
+  gap: 10px;
 `;
 
 const StH1 = styled.h1`
@@ -88,4 +97,16 @@ const Stboxbtn = styled.button`
   border-radius: 10px;
   width: 50px;
   height: 20px;
+`;
+
+const Detailbtn = styled.button`
+  background-color: purple;
+  color: white;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  max-width: 30px;
+  max-height: 20px;
+  font-size: 10px;
+  position: relative;
 `;

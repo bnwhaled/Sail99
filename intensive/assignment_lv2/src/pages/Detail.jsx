@@ -1,8 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import todos from "../redux/modules/todos";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Detail() {
+  const todos = useSelector((state) => state.todos);
+  const params = useParams();
+  const findTodo = todos.todos.find((value) => value.id === Number(params.id));
+  const navigate = useNavigate();
   return (
     <>
       <div
@@ -11,15 +17,18 @@ function Detail() {
         }}
       >
         Detail
+        <button onClick={() => navigate(-1)}>Back</button>
       </div>
+
       <Stdetailbox key={todos}>
-        <div>{todos.id}</div>
+        <div>{findTodo.id}</div>
+
         <br />
         <br />
-        <div>{todos.title}</div>
+        <div>{findTodo.title}</div>
         <br />
         <br />
-        <div>{todos.body}</div>
+        <div>{findTodo.body}</div>
         <br />
         <br />
       </Stdetailbox>
