@@ -24,29 +24,44 @@ const AddForm = () => {
   };
 
   return (
-    <StinputContainer>
-      <span>Todolist</span>
-      <br />
-      <form onSubmit={onSubmitHandler}>
+    <div>
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "100px",
+          fontFamily: " serif",
+          textDecorationLine: "underline",
+          textDecorationStyle: "double",
+          textDecorationThickness: 3,
+        }}
+      >
+        Todolist
+      </div>
+      <StinputContainer>
         <br />
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          value={body}
-          onChange={(e) => {
-            setBody(e.target.value);
-          }}
-        />
+        <form onSubmit={onSubmitHandler}>
+          <br />
+          <Stinputbox
+            placeholder="Title"
+            type="text"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+          <Stinputbox
+            placeholder="Content"
+            type="text"
+            value={body}
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+          />
 
-        <Stinputbtn>+</Stinputbtn>
-      </form>
-    </StinputContainer>
+          <Stinputbtn>+</Stinputbtn>
+        </form>
+      </StinputContainer>
+    </div>
   );
 };
 
@@ -57,14 +72,21 @@ const StinputContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 10px 10px 10px 10px;
+  gap: 30px;
 `;
-
+const Stinputbox = styled.input`
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  text-align: center;
+`;
 const Stinputbtn = styled.button`
   appearance: auto;
-  background-color: #f3f3e1;
+  background-color: black;
+  color: white;
   border-radius: 20px;
-  width: 30px;
-  height: 20px;
-  cursor: pointer;
+  width: 70px;
+  height: 30px;
+  cursor: cell;
 `;

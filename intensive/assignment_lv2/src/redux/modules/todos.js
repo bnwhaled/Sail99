@@ -16,15 +16,8 @@ export const doneTodo = (payload) => {
 
 // 초기값 initialState
 const initialState = {
-  counter: 1,
-  todos: [
-    {
-      id: 1,
-      title: "abc",
-      body: "def",
-      isDone: false,
-    },
-  ],
+  counter: 0,
+  todos: [],
 };
 
 // 리듀서파트
@@ -45,12 +38,16 @@ const todos = (state = initialState, action) => {
         ],
       };
     case DONE_TODO:
+      console.log(action.payload);
       return {
         counter: state.counter,
         todos: [
           ...state.todos.map((value) => {
-            if (value.id === action.payload.id)
+            if (value.id === action.payload.id) {
               return { ...value, isDone: !value.isDone };
+            } else {
+              return value;
+            }
           }),
         ],
       };

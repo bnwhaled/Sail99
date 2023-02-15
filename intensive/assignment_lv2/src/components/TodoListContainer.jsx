@@ -1,23 +1,28 @@
 import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteTodo } from "../redux/modules/todos";
 import { doneTodo } from "../redux/modules/todos";
+import Router from "../shared/Router";
 
 const TodoListContainer = () => {
   const todos = useSelector((state) => state.todos.todos);
+  console.log("todos", todos);
+
   const dispatch = useDispatch();
   //완료버튼 핸들러
   const isDoneBtnHandler = (id) => {
+    console.log("done", id);
     dispatch(doneTodo({ id }));
   };
   //삭제버튼 핸들러
   const removeBtnHandler = (id) => {
+    console.log("romove", id);
     dispatch(deleteTodo({ id }));
   };
+
   return (
-    <div>
-      <h1>doing</h1>
+    <StTododiv>
+      <StH1>doing</StH1>
       {todos
         .filter((value) => value.isDone === false)
         .map((todo) => (
@@ -26,36 +31,39 @@ const TodoListContainer = () => {
             <br />
             {todo.body}
             <br />
+            <Stboxbtn onClick={() => isDoneBtnHandler(todo.id)}>done</Stboxbtn>
             <br />
-
-            <button onClick={() => isDoneBtnHandler(todo.id)}>완료</button>
-            <button onClick={() => removeBtnHandler(todo.id)}>삭제</button>
+            <Stboxbtn onClick={() => removeBtnHandler(todo.id)}>
+              delete
+            </Stboxbtn>
           </StTodobox>
         ))}
-      <h1>done</h1>
+      <StH1>done</StH1>
       {todos
         .filter((value) => value.isDone === true)
         .map((todo) => (
           <StTodobox key={todo.id}>
             {todo.title}
             <br />
+
             {todo.body}
             <br />
-            <br />
 
-            <button onClick={() => isDoneBtnHandler(todo.id)}>완료</button>
-            <button onClick={() => removeBtnHandler(todo.id)}>삭제</button>
+            <Stboxbtn onClick={() => isDoneBtnHandler(todo.id)}>back</Stboxbtn>
+            <br />
+            <Stboxbtn onClick={() => removeBtnHandler(todo.id)}>
+              delete
+            </Stboxbtn>
           </StTodobox>
         ))}
-    </div>
+    </StTododiv>
   );
 };
 
 export default TodoListContainer;
 
 const StTododiv = styled.div`
-  display: flex;
-  gap: 12px;
+  gap: 50px;
   flex-wrap: wrap;
 `;
 const StTodobox = styled.div`
@@ -66,4 +74,18 @@ const StTodobox = styled.div`
   align-items: center;
   padding: 0 24px;
   border-radius: 12px;
+  column-count: 2;
+`;
+
+const StH1 = styled.h1`
+  font-size: 30px;
+  font-family: serif;
+`;
+
+const Stboxbtn = styled.button`
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  width: 50px;
+  height: 20px;
 `;

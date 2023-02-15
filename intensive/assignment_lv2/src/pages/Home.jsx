@@ -1,20 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-// import AddForm from "./components/Addform";
-// import TodoListContainer from "./components/TodoListContainer";
-import Router from "./shared/Router";
+import AddForm from "../components/Addform";
+import TodoListContainer from "../components/TodoListContainer";
 
-const App = () => {
+const Home = () => {
   return (
     <StContainer>
-      <Router />
+      <AddForm />
+      <TodoListContainer />
     </StContainer>
   );
 };
 
-export default App;
-
-//전체스타일(중앙고정)
+export default Home;
 
 const StContainer = styled.section`
   max-width: 1000px;
