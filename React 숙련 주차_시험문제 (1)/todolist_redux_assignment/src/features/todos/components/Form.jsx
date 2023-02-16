@@ -27,14 +27,14 @@ const Form = () => {
     e.preventDefault();
     if (todo.title.trim() === "" || todo.body.trim() === "") return;
 
-    dispatch(
-      addTodo({
-        id: todo.length + 1,
-        title: todo.title,
-        body: todo.body,
-        isDone: false,
-      })
-    );
+    dispatch(addTodo({ ...todo, id }));
+    // console.log("add", todo);
+    setTodo({
+      id,
+      title: "",
+      body: "",
+      isDone: false,
+    });
   };
 
   return (

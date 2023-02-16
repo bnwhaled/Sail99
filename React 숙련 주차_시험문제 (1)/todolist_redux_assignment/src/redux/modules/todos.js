@@ -57,7 +57,15 @@ const initialState = {
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
+    case DELETE_TODO:
+      return {
+        //state를 펼쳐서 todos를 넣어줌
+        //대괄호안은 그 todos의 값 변경로직
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
     case ADD_TODO:
+      console.log("페이", action.payload);
       return {
         ...state,
         todos: [...state.todos, action.payload],

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const List = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
+  console.log(todos);
 
   const onDeleteTodo = (id) => {
     dispatch(deleteTodo(id));
@@ -58,7 +59,7 @@ const List = () => {
           if (todo.isDone) {
             return (
               <StTodoContainer key={todo.id}>
-                <StLink to={`/${index}`} key={todo.id}>
+                <StLink to={`/${todo.id}`} key={todo.id}>
                   <div>상세보기</div>
                 </StLink>
                 <div>
@@ -74,7 +75,7 @@ const List = () => {
                   </StButton>
                   <StButton
                     borderColor="green"
-                    onClick={onToggleStatusTodo}
+                    onClick={() => onToggleStatusTodo(todo.id)}
                   >
                     {todo.isDone ? "취소!" : "완료!"}
                   </StButton>
