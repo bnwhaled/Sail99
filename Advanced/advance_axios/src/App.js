@@ -51,8 +51,6 @@ function App() {
         } else {
           return item;
         }
-        //hello
-        //hello this is test
       })
     );
   };
