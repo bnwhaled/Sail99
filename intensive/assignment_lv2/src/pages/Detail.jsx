@@ -21,14 +21,14 @@ function Detail() {
       </div>
 
       <Stdetailbox key={todos}>
-        <div>{findTodo.id}</div>
+        <div>id:{findTodo.id}</div>
 
         <br />
         <br />
-        <div>{findTodo.title}</div>
+        <div>title:{findTodo.title}</div>
         <br />
         <br />
-        <div>{findTodo.body}</div>
+        <div>Content:{findTodo.body}</div>
         <br />
         <br />
       </Stdetailbox>

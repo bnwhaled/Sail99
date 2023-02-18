@@ -46,7 +46,7 @@ const TodoListContainer = () => {
         .filter((value) => value.isDone === true)
         .map((todo) => (
           <StTodobox key={todo.id}>
-            <Detailbtn>detail</Detailbtn>
+            <Link to={`/detail/${todo.id}`}>detail</Link>
             {todo.title}
             <br />
 
