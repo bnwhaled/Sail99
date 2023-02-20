@@ -4,6 +4,11 @@ import axios from "axios";
 //1. baseURL 설정 후 export => App.jsx에서 import
 const instance = axios.create({
   baseURL: "http://localhost:4001",
+  //2.timeout으로 요청실패시키기
+  //2.명시된 시간 지나면 요청실패 하게 하기
+  //2. ms단위 1 = 0.001초
+
+  timeout: 1,
 });
 
 export default instance;

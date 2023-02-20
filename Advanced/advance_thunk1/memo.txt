@@ -1,0 +1,8 @@
+1. thunk함수 만들기 : createAsyncThunk
+  - reduxToolkit 내장 API임
+
+2. createSlice 내의 extraReducer에 thunk를 등록
+
+3. dispatch 하기
+
+4. test
