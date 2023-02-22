@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 function Input() {
   const [name, setName] = useState("");
@@ -21,20 +22,20 @@ function Input() {
   };
 
   return (
-    <>
+    <StInputContainer>
       <h1>&nbsp;Input</h1>
       <form onSubmit={onSubmitPrompt}>
         이름
-        <input
+        <StInput
           value={name}
           type="text"
           onChange={(e) => {
             setName(e.target.value);
             console.log(name);
           }}
-        />{" "}
-        &nbsp; 가격{" "}
-        <input
+        />
+        <br /> &nbsp; 가격{" "}
+        <StInput
           value={price}
           type="number"
           placeholder="0"
@@ -44,10 +45,30 @@ function Input() {
           }}
         />
         &nbsp;
+        <br />
         <button>저장</button>
       </form>
-    </>
+    </StInputContainer>
   );
 }
 
 export default Input;
+
+const StInputContainer = styled.div`
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid gray;
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  padding: 50px;
+  border: 1px solid gray;
+  margin-top: 10px;
+`;
+
+const StInput = styled.input`
+  padding-left: 1rem;
+  width: 200px;
+  height: 30px;
+  border-radius: 15px;
+`;

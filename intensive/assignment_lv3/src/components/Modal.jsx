@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
 export const Modal = () => {
@@ -14,8 +14,16 @@ export const Modal = () => {
   const openModalHandler2 = () => {
     setIsOpen2(!isOpen2);
   };
+  //모달 외부클릭 닫기
+  const [isClose, setIsClose] = useState(true);
+  const closeModalHandler = () => {
+    setIsClose(!isClose);
+  };
+
+  const outSection = useRef();
   return (
-    <>
+    <ModalWrap>
+      <h1>Modal</h1>
       <ModalContainer>
         <ModalBtn onClick={openModalHandler}>
           {isOpen ? "Opened !" : "Open Modal"}
@@ -24,9 +32,9 @@ export const Modal = () => {
           <ModalBackdrop>
             <ModalView onClick={!openModalHandler}>
               <ModalViewOne onClick={!openModalHandler}>
-                모달창 외부클릭 닫히기
+                닫기버튼으로 닫기
                 <button onClick={openModalHandler}>닫기</button>
-                <button onClick={!openModalHandler}>확인</button>
+                <button onClick={openModalHandler}>확인</button>
               </ModalViewOne>
             </ModalView>
           </ModalBackdrop>
@@ -38,34 +46,52 @@ export const Modal = () => {
         <ModalBtn onClick={openModalHandler2}>
           {isOpen2 ? "Opened !" : "Open Modal"}
         </ModalBtn>
-        {isOpen2 ? (
-          <ModalBackdrop onClick={openModalHandler2}>
-            <ModalView onClick={!openModalHandler2}>
-              <ModalViewOne onClick={!openModalHandler2}>
+        {isOpen2 === true ? (
+          <ModalBackdrop
+            ref={outSection}
+            onClick={(e) => {
+              if (outSection.current === e.target) {
+                setIsOpen2(false);
+              }
+            }}
+          >
+            <ModalView>
+              <ModalViewOne onClick={!openModalHandler}>
                 모달창 외부클릭 닫히기
-                <button onClick={openModalHandler2}>닫기</button>
-                <button onClick={!openModalHandler2}>확인</button>
+                <button onClick={openModalHandler2}>X</button>
               </ModalViewOne>
             </ModalView>
           </ModalBackdrop>
         ) : null}
+        {isOpen2 ? <div style={{ backgroundColor: "gray" }}></div> : null}
       </ModalContainer>
-    </>
+    </ModalWrap>
   );
 };
 
-export const ModalContainer = styled.div`
-  width: 100px;
-  height: 100px;
-  display: flex;
-  flex-flow: row wrap-reverse;
+const ModalWrap = styled.div`
+  align-items: center;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 200px;
+  padding: 50px;
+  border: 1px solid gray;
+  margin-top: 10px;
+`;
+
+export const ModalContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
   align-items: center;
 `;
 
 export const ModalBtn = styled.button`
-  background-color: purple;
-  text-decoration: none;
+  background-color: #0033ffc0;
   border: none;
   padding: 20px;
   color: white;
@@ -77,17 +103,23 @@ export const ModalBackdrop = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  flex-flow: row wrep;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 10;
 `;
 
 export const ModalView = styled.div`
   text-align: center;
-  padding: 30px 90px;
-  border-radius: 10px;
+  width: 300px;
+  height: 100px;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
 `;
 
 export const ModalViewOne = styled.div`

@@ -10,8 +10,8 @@ export const Button = () => {
   const sign = () => window.prompt("뭐든 적어");
 
   return (
-    <>
-      <h1>&nbsp;Button</h1>
+    <StButtonContainer>
+      <h1>Button</h1>
       <Stwrapbox>
         <StlargePrimayBtn onClick={alertPrimary}>
           Large Primary Button
@@ -49,16 +49,35 @@ export const Button = () => {
           Small
         </StsmallBtn>
       </Stwrapbox>
-    </>
+    </StButtonContainer>
   );
 };
 
 export default Button;
 
-export const Stwrapbox = styled.div`
+const StButtonContainer = styled.div`
+  text-align: center;
+  padding: 50px;
+  border: 1px solid gray;
+  margin-top: 10px;
+  width: 400px;
+  height: 200px;
+  padding: 50px;
+  border: 1px solid gray;
+`;
+
+const Stwrapbox = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
+// const BtnTotalContainer = styled.div`
+//   width: 100%;
+//   align-items: center;
+//   justify-content: center;
+//   display: flex;
+//   flex-direction: column;
+// `;
 
 const StlargePrimayBtn = styled.button`
   padding: 10px;
