@@ -1,87 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
+import Select from "./components/Select";
+import { Modal } from "./components/Modal";
+import Input from "./components/Input";
+import Button from "./components/Button";
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  // const [name, setName] = useState("");
+  // const [price, setPrice] = useState("");
 
-  //모달버튼1
-  const [isOpen, setIsOpen] = useState(false);
+  // const n1 = price;
+  // const priceComma = n1.toLocaleString("ko-KR");
 
-  const openModalHandler = () => {
-    setIsOpen(!isOpen);
-  };
-  //모달버튼2
-  const [isOpen2, setIsOpen2] = useState(false);
+  // //input prompt
+  // const onSubmitPrompt = (e) => {
+  //   e.preventDefault();
+  //   if (name === "") return;
 
-  const openModalHandler2 = () => {
-    setIsOpen2(!isOpen2);
-  };
+  //   // toLocalString() : 숫자 기본형식으로(3자리마다 콤마)
 
-  //alert버튼1
-  const alertPrimary = () => {
-    alert("알람버튼 ");
-  };
-  //alert버튼2
-  const sign = () => window.prompt("뭐든 적어");
+  //   alert(`이름:${name} & 가격:${priceComma}`);
 
-  const n1 = price;
-  const priceComma = n1.toLocaleString("ko-KR");
-
-  //input prompt
-  const onSubmitPrompt = (e) => {
-    e.preventDefault();
-    if (name === "") return;
-
-    // toLocalString() : 숫자 기본형식으로(3자리마다 콤마)
-
-    alert(`이름:${name} & 가격:${priceComma}`);
-
-    setName("");
-    setPrice("");
-  };
+  //   setName("");
+  //   setPrice("");
+  // };
   return (
     <>
-      <h1>&nbsp;Button</h1>
-      <Stwrapbox>
-        <StlargePrimayBtn onClick={alertPrimary}>
-          Large Primary Button
-        </StlargePrimayBtn>
-        <StmediumBtn>Medium</StmediumBtn>
-        <StsmallBtn>Small</StsmallBtn>
-      </Stwrapbox>
-      <br />
-      <Stwrapbox>
-        <StlargePrimayBtn
-          style={{
-            borderColor: "orange",
-            color: "red",
-          }}
-          onClick={sign}
-        >
-          Large Negative Button
-        </StlargePrimayBtn>
-        <StmediumBtn
-          style={{
-            backgroundColor: "orange",
-            borderColor: "orange",
-            color: "red",
-          }}
-        >
-          Medium
-        </StmediumBtn>
-        <StsmallBtn
-          style={{
-            backgroundColor: "orange",
-            borderColor: "orange",
-            color: "red",
-          }}
-        >
-          Small
-        </StsmallBtn>
-      </Stwrapbox>
-      <h1>&nbsp;Input</h1>
+      <Button />
+      {/* <h1>&nbsp;Input</h1>
       <form onSubmit={onSubmitPrompt}>
         이름
         <input
@@ -104,34 +51,54 @@ const App = () => {
         />
         &nbsp;
         <button>저장</button>
-      </form>
+      </form> */}
+      <Input />
 
-      {/* 모달 JSX */}
-      <ModalBox>
-        <h1>&nbsp;Modal</h1>
+      {/* 모달 렌더 */}
+      <Modal />
 
-        <button onClick={openModalHandler} style={{ marginLeft: "5px" }}>
-          click
-        </button>
-        <button onClick={openModalHandler2} style={{ marginLeft: "5px" }}>
-          asdf
-        </button>
-      </ModalBox>
-      <br />
+      {/* 모달창 외부 클릭시 닫히지 않음
+      <ModalContainer>
+        <ModalBtn onClick={openModalHandler}>
+          {isOpen ? "Opened !" : "Open Modal"}
+        </ModalBtn>
+        {isOpen ? (
+          <ModalBackdrop>
+            <ModalView onClick={!openModalHandler}>
+              <ModalViewOne onClick={!openModalHandler}>
+                모달창 외부클릭 닫히기
+                <button onClick={openModalHandler}>닫기</button>
+                <button onClick={!openModalHandler}>확인</button>
+              </ModalViewOne>
+            </ModalView>
+          </ModalBackdrop>
+        ) : null}
+      </ModalContainer>
 
-      <StselectWrapBox>
-        <h1>&nbsp;Select</h1>
-        <select style={{ marginLeft: "5px" }} name="React" id="selectbox">
-          <option>language</option>
-          <option>React</option>
-          <option>Spring</option>
-          <option>redux</option>
-          <option>axios</option>
-        </select>
-      </StselectWrapBox>
+      {/* 모달박스 2 => 외부 누르면 닫힘 */}
+      {/* <ModalContainer>
+        <ModalBtn onClick={openModalHandler2}>
+          {isOpen2 ? "Opened !" : "Open Modal"}
+        </ModalBtn>
+        {isOpen2 ? (
+          <ModalBackdrop onClick={openModalHandler2}>
+            <ModalView onClick={!openModalHandler2}>
+              <ModalViewOne onClick={!openModalHandler2}>
+                모달창 외부클릭 닫히기
+                <button onClick={openModalHandler2}>닫기</button>
+                <button onClick={!openModalHandler2}>확인</button>
+              </ModalViewOne>
+            </ModalView>
+          </ModalBackdrop>
+        ) : null}
+      </ModalContainer> */}
+
+      {/* 셀릭박스 렌더 */}
+      <Select />
     </>
   );
 };
+
 //모달창//
 // const Modal = () => {
 //   return (
@@ -148,61 +115,61 @@ const App = () => {
 
 export default App;
 //박스 row
-const Stwrapbox = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+// const Stwrapbox = styled.div`
+//   display: flex;
+//   flex-direction: row;
+// `;
 
-const StlargePrimayBtn = styled.button`
-  padding: 10px;
-  border: 2px solid lightgreen;
-  width: 200px;
-  border-radius: 5px;
-  margin: 0px 5px 0px 5px;
-  height: 30px;
-  display: flex;
-  background-color: white;
-  font-family: cursive;
+// const StlargePrimayBtn = styled.button`
+//   padding: 10px;
+//   border: 2px solid lightgreen;
+//   width: 200px;
+//   border-radius: 5px;
+//   margin: 0px 5px 0px 5px;
+//   height: 30px;
+//   display: flex;
+//   background-color: white;
+//   font-family: cursive;
 
-  //가로세로 중앙정렬
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
+//   //가로세로 중앙정렬
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+// `;
 
-const StmediumBtn = styled.button`
-  padding: 10px;
-  border: 2px solid lightgreen;
-  background-color: lightgreen;
-  width: 100px;
-  height: 25px;
-  border-radius: 5px;
-  margin: 0px 5px 0px 5px;
-  display: flex;
+// const StmediumBtn = styled.button`
+//   padding: 10px;
+//   border: 2px solid lightgreen;
+//   background-color: lightgreen;
+//   width: 100px;
+//   height: 25px;
+//   border-radius: 5px;
+//   margin: 0px 5px 0px 5px;
+//   display: flex;
 
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  font-family: cursive;
-  cursor: pointer;
-`;
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+//   font-family: cursive;
+//   cursor: pointer;
+// `;
 
-const StsmallBtn = styled.button`
-  padding: 10px;
-  border: 2px solid lightgreen;
-  background-color: lightgreen;
-  max-width: 150px;
-  height: 10px;
-  border-radius: 5px;
-  margin: 0px 5px 0px 5px;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  font-family: cursive;
-  cursor: pointer;
-`;
+// const StsmallBtn = styled.button`
+//   padding: 10px;
+//   border: 2px solid lightgreen;
+//   background-color: lightgreen;
+//   max-width: 150px;
+//   height: 10px;
+//   border-radius: 5px;
+//   margin: 0px 5px 0px 5px;
+//   display: flex;
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+//   font-family: cursive;
+//   cursor: pointer;
+// `;
 
 const StselectWrapBox = styled.div`
   border-radius: 5px;
@@ -212,13 +179,6 @@ const StselectWrapBox = styled.div`
   margin-top: 10px;
   overflow: hidden;
   background-color: red;
-`;
-
-const ModalBox = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: green;
-  text-align: center;
 `;
 
 // export const Modal = () => {
