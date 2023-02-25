@@ -11,7 +11,7 @@ const Router = () => {
         {/* localhost 3000이 기본 */}
         <Route path="/" element={<Home />} />
         {/* localhost 3000/detail이 Detail */}
-        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/Detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
