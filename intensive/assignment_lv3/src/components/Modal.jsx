@@ -19,8 +19,8 @@ export const Modal = () => {
   const closeModalHandler = () => {
     setIsClose(!isClose);
   };
-
   const outSection = useRef();
+
   return (
     <ModalWrap>
       <h1>Modal</h1>
@@ -81,7 +81,7 @@ const ModalWrap = styled.div`
   margin-top: 10px;
 `;
 
-export const ModalContainer = styled.div`
+const ModalContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -90,7 +90,7 @@ export const ModalContainer = styled.div`
   align-items: center;
 `;
 
-export const ModalBtn = styled.button`
+const ModalBtn = styled.button`
   background-color: #0033ffc0;
   border: none;
   padding: 20px;
@@ -99,7 +99,7 @@ export const ModalBtn = styled.button`
   cursor: grab;
 `;
 
-export const ModalBackdrop = styled.div`
+const ModalBackdrop = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -114,7 +114,7 @@ export const ModalBackdrop = styled.div`
   z-index: 10;
 `;
 
-export const ModalView = styled.div`
+const ModalView = styled.div`
   text-align: center;
   width: 300px;
   height: 100px;
@@ -122,7 +122,7 @@ export const ModalView = styled.div`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const ModalViewOne = styled.div`
+const ModalViewOne = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
